@@ -76,7 +76,7 @@ def get_sockets_service(
 AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
 UsersServiceDep = Annotated[UsersService, Depends(get_users_service)]
 EmailsServiceDep = Annotated[EmailsService, Depends(get_emails_service)]
-FilesServiceDep = Annotated[EmailsService, Depends(get_files_service)]
+FilesServiceDep = Annotated[FilesService, Depends(get_files_service)]
 TopicsServiceDep = Annotated[TopicsService, Depends(get_topics_service)]
 MessageServiceDep = Annotated[MessagesService, Depends(get_message_service)]
 SocketsServiceDep = Annotated[SocketsService, Depends(get_sockets_service)]

@@ -37,12 +37,12 @@ class FilesService(BaseService):
 
     async def upload_file(
         self,
-        user_id: int,
+        user_oid: str,
         file: UploadFile,
     ) -> FileResponse:
         try:
             key = await self.s3.upload_file(
-                user_id=user_id,
+                user_oid=user_oid,
                 file=file,
             )
         except EmptyFileException:
@@ -54,7 +54,7 @@ class FilesService(BaseService):
 
         new_file = FileCreate(
             key=key,
-            author_id=user_id,
+            author_oid=user_oid,
             size=file.size,
             origin=file.filename or "unknown",
         )
@@ -64,7 +64,7 @@ class FilesService(BaseService):
     async def delete_file(
         self,
         file_name: str,
-        user_id: int,
+        user_oid: str,
     ) -> None:
         try:
             await self.db.files.get_one(key=file_name)
@@ -74,7 +74,7 @@ class FilesService(BaseService):
         try:
             await self.s3.delete_file(
                 file_name=file_name,
-                user_id=user_id,
+                user_oid=user_oid,
             )
         except FileNotFoundException:
             raise FileNotFoundException
