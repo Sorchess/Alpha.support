@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import String, Boolean, DateTime, Integer
+from sqlalchemy import String, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.security import generate_uuid
@@ -49,6 +49,6 @@ class User(Base):
     )
     files: Mapped[list["File"]] = relationship(
         "File",
-        back_populates="author",
+        back_populates="owner",
         cascade="all, delete-orphan",
     )

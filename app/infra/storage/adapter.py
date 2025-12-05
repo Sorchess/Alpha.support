@@ -9,7 +9,7 @@ from urllib.parse import quote, unquote
 
 
 from config import settings
-from infra.storage.client import S3ClientFactory
+from infra.storage.factory import S3ClientFactory
 from utils.file import (
     get_ext_from_upload,
     build_content_disposition,
@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class S3Adapter:
-    client: S3ClientFactory
+    factory: S3ClientFactory
 
     async def upload_file(
         self,
@@ -55,39 +55,39 @@ class S3Adapter:
         meta_value = quote(original_name)
 
         metadata = {
-            "author_oid": user_oid,
+            "owner_oid": user_oid,
             "original-filename": meta_value,
         }
-
-        try:
-            await self.client.put_object(
-                path=path,
-                data=data,
-                content_type=content_type,
-                size=size,
-                metadata=metadata,
-            )
-            return f"{key}{ext}"
-        except Exception:
-            raise FileUploadFailedException
+        async with self.factory.client_getter() as client:
+            try:
+                await self.factory.put_object(
+                    client=client,
+                    path=path,
+                    data=data,
+                    content_type=content_type,
+                    size=size,
+                    metadata=metadata,
+                )
+                return f"{key}{ext}"
+            except Exception:
+                raise FileUploadFailedException
 
     async def _get_file_chunk(
         self,
         key: str,
-        content_length: int,
-        chunk_length: int,
+        chunk_size: int,
     ) -> AsyncGenerator[bytes, None]:
-        for offset in range(0, content_length, chunk_length):
-            end = min(offset + chunk_length - 1, content_length - 1)
+        async with self.factory.client_getter() as client:
             try:
-                file = await self.client.get_object(key=key, offset=offset, end=end)
+                response = await self.factory.get_object(client=client, key=key)
             except FileNotFoundException:
                 raise FileNotFoundException
             except:
                 raise StreamingFileFailedException
 
-            async with file["Body"] as stream:
-                yield await stream.read()
+            async with response.get("Body") as stream:
+                async for chunk in stream.content.iter_chunked(chunk_size):
+                    yield chunk
 
     async def proxy_file(
         self,
@@ -95,14 +95,15 @@ class S3Adapter:
         folder: str = "uploads",
     ):
         key = f"public/{folder}/{file_name}"
-        chunk_lenght = 1024 * 1024
+        chunk_size = 1024 * 1024
 
-        try:
-            resp = await self.client.head_object(key=key)
-        except FileNotFoundException:
-            raise FileNotFoundException
-        except:
-            raise StreamingFileFailedException
+        async with self.factory.client_getter() as client:
+            try:
+                resp = await self.factory.head_object(client=client, key=key)
+            except FileNotFoundException:
+                raise FileNotFoundException
+            except:
+                raise StreamingFileFailedException
 
         content_length = resp.get("ContentLength")
         content_type: str = resp.get("ContentType") or "application/octet-stream"
@@ -129,8 +130,7 @@ class S3Adapter:
 
         file_chunk_iterator = self._get_file_chunk(
             key=key,
-            content_length=content_length,
-            chunk_length=chunk_lenght,
+            chunk_size=chunk_size,
         )
         return StreamingResponse(
             content=file_chunk_iterator, media_type=content_type, headers=headers
@@ -143,32 +143,27 @@ class S3Adapter:
         folder: str = "uploads",
     ):
         key = f"public/{folder}/{file_name}"
+        async with self.factory.client_getter() as client:
+            try:
+                resp = await self.factory.head_object(client=client, key=key)
+            except FileNotFoundException:
+                raise FileNotFoundException
+            except:
+                raise FileDeleteFailedException
 
-        try:
-            resp = await self.client.head_object(key=key)
-        except FileNotFoundException:
-            raise FileNotFoundException
-        except:
-            raise FileDeleteFailedException
+            meta = resp.get("Metadata") or {}
+            owner_oid = meta.get("owner_oid")
 
-        meta = resp.get("Metadata") or {}
-        author = meta.get("author_oid")
+            if not owner_oid:
+                raise InvalidMetadataException
 
-        if not author:
-            raise InvalidMetadataException
+            if owner_oid != user_oid:
+                raise NotAuthorizedException
 
-        try:
-            author_oid = int(author)
-        except ValueError:
-            raise InvalidMetadataException
-
-        if author_oid != user_oid:
-            raise NotAuthorizedException
-
-        try:
-            await self.client.delete_object(key=key)
-        except:
-            raise FileDeleteFailedException
+            try:
+                await self.factory.delete_object(client=client, key=key)
+            except:
+                raise FileDeleteFailedException
 
     async def get_presigned_url(
         self,
@@ -177,4 +172,7 @@ class S3Adapter:
         folder: str = "uploads",
     ) -> str:
         key = f"public/{folder}/{file_name}"
-        return await self.client.generate_url(key=key, expires_in=expires_in)
+        async with self.factory.client_getter() as client:
+            return await self.factory.generate_url(
+                client=client, key=key, expires_in=expires_in
+            )

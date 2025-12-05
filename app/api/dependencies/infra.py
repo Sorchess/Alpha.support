@@ -12,11 +12,11 @@ from infra.database.manager import DatabaseManager
 from infra.redis.adapter import RedisAdapter
 from infra.redis.client import RedisClientFactory
 from infra.storage.adapter import S3Adapter
-from infra.storage.client import S3ClientFactory
+from infra.storage.factory import S3ClientFactory
 
 
 _s3_client_factory = S3ClientFactory()
-_s3_adapter = S3Adapter(client=_s3_client_factory)
+_s3_adapter = S3Adapter(factory=_s3_client_factory)
 
 _redis_factory = RedisClientFactory(url=settings.redis.url)
 _redis_client = _redis_factory.get_client(db_index=0)

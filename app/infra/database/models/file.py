@@ -19,7 +19,7 @@ class File(Base):
     topic_oid: Mapped[str] = mapped_column(
         ForeignKey("topics.oid", ondelete="CASCADE"), nullable=True
     )
-    author_oid: Mapped[str] = mapped_column(
+    owner_oid: Mapped[str] = mapped_column(
         ForeignKey("users.oid", ondelete="CASCADE"), nullable=False
     )
 
@@ -28,7 +28,7 @@ class File(Base):
         "Topic",
         back_populates="files",
     )
-    author: Mapped["User"] = relationship(
+    owner: Mapped["User"] = relationship(
         "User",
         back_populates="files",
     )

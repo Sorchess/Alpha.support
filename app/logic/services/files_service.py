@@ -54,7 +54,7 @@ class FilesService(BaseService):
 
         new_file = FileCreate(
             key=key,
-            author_oid=user_oid,
+            owner_oid=user_oid,
             size=file.size,
             origin=file.filename or "unknown",
         )
