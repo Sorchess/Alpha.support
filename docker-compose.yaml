@@ -1,0 +1,128 @@
+networks:
+  prod:
+
+services:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    hostname: rabbitmq
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_VHOST: "/"
+      RABBITMQ_CONFIG_FILE: /etc/rabbitmq/rabbitmq.conf
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - prod
+
+  redis:
+    image: redis:7-alpine
+    hostname: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks:
+      - prod
+
+  maildev:
+    image: maildev/maildev
+    environment:
+      - TZ=Europe/Moscow
+      - MAILDEV_WEB_PORT=1080
+      - MAILDEV_SMTP_PORT=1025
+    ports:
+      - "8080:1080"
+      - "1025:1025"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+    networks:
+      - prod
+  pg:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks:
+      - prod
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      - pg
+    networks:
+      - prod
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: python main.py
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      pg:
+        condition: service_healthy
+    networks:
+      - prod
+
+  task-worker:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: python -m faststream run infra.broker:worker
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      app:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - prod
+
+
+
+
+volumes:
+  pgdata:
+  rabbitmq-data:
+  redis_data:
