@@ -24,7 +24,7 @@ from core.exceptions import (
 router = APIRouter(prefix="/files", tags=["files"])
 
 
-@router.post("/file/")
+@router.post("/")
 async def upload_file(
     files_service: FilesServiceDep,
     user_oid: UserIdDep,
@@ -48,7 +48,7 @@ async def upload_file(
         raise FileUploadFailedHTTPException
 
 
-@router.get("/file/{file_name}")
+@router.get("/{file_name}")
 async def proxy_file(
     files_service: FilesServiceDep,
     file_name: str,
@@ -63,7 +63,7 @@ async def proxy_file(
         raise FileNotFoundHTTPException
 
 
-@router.delete("/file/{file_name}")
+@router.delete("/{file_name}")
 async def delete_file(
     files_service: FilesServiceDep,
     file_name: str,

@@ -15,7 +15,7 @@ from core.exceptions import (
 from schemas.message import MessageCreate
 from schemas.topic import TopicCreate
 
-router = APIRouter(prefix="/topic", tags=["topic"])
+router = APIRouter(prefix="/topics", tags=["topics"])
 
 
 @router.get("/")
