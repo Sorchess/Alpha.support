@@ -26,7 +26,7 @@ async def get_personal_info(
 ):
     try:
         result = await users_service.get_user_info(
-            topic_oid=user_oid,
+            user_oid=user_oid,
         )
         return {
             "status": "success",
@@ -129,7 +129,7 @@ async def logout(
         raise InvalidSessionCookieHTTPException
 
 
-@router.post("/edit")
+@router.patch("/edit")
 async def edit_profile(
     user_update: UserUpdate,
     emails_service: EmailsServiceDep,
