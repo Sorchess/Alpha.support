@@ -1,0 +1,103 @@
+@use "../../shared/styles/variables" as *;
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-background;
+
+  &__card {
+    width: 100%;
+    max-width: 480px;
+    padding: 48px 36px;
+    background: $color-white;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  &__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.18),
+      0 0 25px rgba(66, 151, 255, 0.35);
+  }
+
+  &__title {
+    margin-bottom: 28px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: $color-text;
+  }
+
+  &__content {
+    animation: auth-fade-in 0.25s ease-out;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 4px;
+    background: #f3f4f6;
+    border-radius: 999px;
+  }
+
+  &__tab {
+    flex: 1;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 0;
+    font-size: 14px;
+    cursor: pointer;
+    background: transparent;
+    color: $color-text-secondary;
+    transition: background-color 0.2s ease, color 0.2s ease,
+      box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &--active {
+      background: $color-white;
+      color: $color-primary;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+    }
+  }
+}
+
+@keyframes auth-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Адаптив для мобильных
+@media (max-width: $breakpoint-mobile) {
+  .auth-page {
+    padding: 0 12px;
+
+    &__card {
+      padding: 28px 18px;
+    }
+
+    &__title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+// Адаптив для планшетов
+@media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet) {
+  .auth-page__card {
+    max-width: 500px;
+  }
+}

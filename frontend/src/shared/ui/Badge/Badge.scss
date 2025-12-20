@@ -1,0 +1,29 @@
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px; // «пилюля»
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+
+  // Цветовые модификаторы
+  &--blue {
+    background-color: #e0f2fe; // светло-голубой фон
+    color: #0369a1; // тёмно-голубой текст
+  }
+
+  &--orange {
+    background-color: #fef3c7; // светло-оранжевый
+    color: #b45309;
+  }
+
+  &--green {
+    background-color: #dcfce7; // светло-зелёный
+    color: #15803d;
+  }
+
+  &--gray {
+    background-color: #f1f5f9; // светло-серый
+    color: #64748b;
+  }
+}

@@ -1,0 +1,145 @@
+@use "../../shared/styles/variables" as *;
+
+.tickets-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-background;
+  padding-bottom: 88px; // место для BottomNav
+
+  &--loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Шапка
+  &__header {
+    background: $color-primary;
+    padding: 24px 5% 24px; // меньше снизу, чуть сбоку
+    display: flex;
+    align-items: flex-end; // выровняем по нижнему краю
+  }
+
+  &__title {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    text-align: left;
+  }
+
+  // Основной контент
+  &__content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  // Поле поиска
+  &__search {
+    margin-top: 16px;
+    width: 100%;
+    padding: 0 5%;
+  }
+
+  &__search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #ffffff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+
+  // Табы фильтрации
+  &__filters {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto; // скролл на маленьких экранах
+    padding: 16px 5% 16px; // чтобы скроллбар не обрезался
+
+    // Убираем скроллбар визуально (но скролл работает)
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  &__filter-btn {
+    flex-shrink: 0; // Не сжимаем кнопки
+    padding: 8px 18px;
+    border: none;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #eef2ff; // лёгкий фиолетовый фон
+    color: $color-text-secondary;
+    transition: background-color 0.15s ease, color 0.15s ease,
+      transform 0.05s ease;
+
+    &:hover {
+      background: #d1d5db;
+    }
+
+    &--active {
+      background: #ffffff;
+      color: $color-primary;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+      transform: translateY(-1px);
+
+      &:hover {
+        background: ligthen($color-primary, 1%);
+      }
+    }
+  }
+
+  // Список карточек
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 5%;
+  }
+
+  &__empty {
+    text-align: center;
+    color: $color-text-secondary;
+    padding: 32px 16px;
+    font-size: 15px;
+  }
+}
+
+// Адаптив для планшетов и десктопа
+@media ($breakpoint-tablet) {
+  .tickets-page {
+    &__content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 24px 32px;
+    }
+
+    &__header {
+      padding: 28px 40px 18px;
+    }
+
+    &__title {
+      font-size: 24px;
+    }
+  }
+}

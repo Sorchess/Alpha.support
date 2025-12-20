@@ -1,0 +1,238 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #f5f7fb;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.profile-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f7fb;
+  padding-bottom: 72px;
+  /* Верхняя синяя шапка */
+  /* Основное содержимое */
+  /* Кнопка выхода */
+}
+.profile-page__header {
+  background: #242470;
+  padding: 40px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
+.profile-page__avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f4f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.profile-page__avatar-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: #242470;
+}
+.profile-page__name {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.profile-page__role {
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 0;
+}
+.profile-page__content {
+  flex: 1;
+  padding: 50px 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0 5%;
+}
+.profile-page__logout-button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 999px;
+  background-color: #f04438;
+  color: #ffffff;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.35);
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+}
+.profile-page__logout-button:hover {
+  background-color: #dc2626;
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.45);
+  transform: translateY(-1px);
+}
+.profile-page__logout-button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(220, 38, 38, 0.35);
+}
+
+/* Карточки */
+.profile-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  padding: 16px 16px 12px;
+  width: 100%;
+}
+.profile-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+.profile-card__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  border-top: 1px solid #f1f5f9;
+}
+.profile-card__row:first-of-type {
+  border-top: none;
+}
+.profile-card__label {
+  color: #6b7280;
+}
+.profile-card__value {
+  color: #1a1a1a;
+  text-align: right;
+}
+
+/* Тогглы */
+.profile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  border-top: 1px solid #f1f5f9;
+  /* Кастомный переключатель */
+}
+.profile-toggle:first-of-type {
+  border-top: none;
+}
+.profile-toggle__label {
+  color: #1a1a1a;
+}
+.profile-toggle__switch {
+  position: relative;
+  width: 38px;
+  height: 20px;
+  display: inline-block;
+}
+.profile-toggle__checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.profile-toggle__slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  transition: background-color 0.15s ease;
+}
+.profile-toggle__slider::before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  top: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+}
+.profile-toggle__checkbox:checked + .profile-toggle__slider {
+  background-color: #242470;
+}
+.profile-toggle__checkbox:checked + .profile-toggle__slider::before {
+  transform: translateX(18px);
+}
+
+/* Нижняя навигация */
+.profile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.profile-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  color: #6b7280;
+  cursor: pointer;
+}
+.profile-nav__item--active {
+  color: #242470;
+}
+.profile-nav__icon {
+  font-size: 18px;
+}
+.profile-nav__label {
+  font-size: 11px;
+}
+
+/* Адаптив для планшетов */
+@media (768px) {
+  .profile-page__header {
+    padding: 48px 32px 36px;
+  }
+  .profile-page__content {
+    max-width: 800px;
+    padding-top: 24px;
+    gap: 20px;
+  }
+  .profile-page__logout-button {
+    max-width: 100%;
+    margin: 8px auto 16px;
+  }
+  .profile-nav {
+    max-width: 480px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+}
+@media (1024px) {
+  .profile-page__content {
+    max-width: 800px;
+  }
+}

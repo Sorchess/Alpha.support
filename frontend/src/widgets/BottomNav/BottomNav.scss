@@ -1,0 +1,59 @@
+@use "../../shared/styles/variables" as *;
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08);
+  z-index: 100;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    border: none;
+    background: transparent;
+    color: $color-text-secondary;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--active {
+      color: $color-primary;
+    }
+  }
+
+  &__icon {
+    font-size: 18px;
+  }
+
+  &__label {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 768px) {
+  .bottom-nav {
+    height: 72px;
+
+    &__icon {
+      font-size: 20px;
+    }
+
+    &__label {
+      font-size: 12px;
+    }
+  }
+}

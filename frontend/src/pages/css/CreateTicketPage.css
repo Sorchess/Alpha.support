@@ -1,0 +1,94 @@
+.create-ticket-page {
+  padding: 16px 16px 88px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.create-ticket-page--loading {
+  min-height: calc(100vh - 88px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.create-ticket-page__header {
+  margin-bottom: 16px;
+}
+.create-ticket-page__title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.create-ticket-page__subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+.create-ticket-page__content {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 14px 16px;
+}
+.create-ticket-page__form {
+  display: grid;
+  gap: 14px;
+}
+.create-ticket-page__field {
+  display: grid;
+  gap: 6px;
+}
+.create-ticket-page__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.create-ticket-page__input, .create-ticket-page__textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #1a1a1a;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.create-ticket-page__input:focus, .create-ticket-page__textarea:focus {
+  border-color: #242470;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
+.create-ticket-page__textarea {
+  resize: vertical;
+}
+.create-ticket-page__input--error, .create-ticket-page__textarea--error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+.create-ticket-page__error {
+  font-size: 12px;
+  color: #ef4444;
+}
+.create-ticket-page__form-error {
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.create-ticket-page__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 6px;
+}
+.create-ticket-page__hint {
+  color: #6b7280;
+}
+
+@media (min-width: 768px) {
+  .create-ticket-page {
+    padding: 20px 20px 96px;
+  }
+}/*# sourceMappingURL=CreateTicketPage.css.map */

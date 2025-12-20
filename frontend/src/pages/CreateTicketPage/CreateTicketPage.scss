@@ -1,0 +1,114 @@
+@use "../../shared/styles/variables" as *;
+
+.create-ticket-page {
+  padding: 16px 16px 88px; // место под BottomNav (fixed)
+  max-width: 860px;
+  margin: 0 auto;
+
+  &--loading {
+    min-height: calc(100vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__header {
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: $color-text-secondary;
+    line-height: 1.4;
+  }
+
+  &__content {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    padding: 14px 16px;
+  }
+
+  &__form {
+    display: grid;
+    gap: 14px;
+  }
+
+  &__field {
+    display: grid;
+    gap: 6px;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: $color-text;
+    outline: none;
+    background: #ffffff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+  }
+
+  &__input--error,
+  &__textarea--error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #ef4444;
+  }
+
+  &__form-error {
+    background: rgba(239, 68, 68, 0.08);
+    color: #b91c1c;
+    border: 1px solid rgba(239, 68, 68, 0.18);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-top: 6px;
+  }
+
+  &__hint {
+    color: $color-text-secondary;
+  }
+}
+
+@media (min-width: 768px) {
+  .create-ticket-page {
+    padding: 20px 20px 96px;
+  }
+}
