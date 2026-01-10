@@ -14,8 +14,16 @@ from schemas.topic import TopicCreate, TopicResponse, TopicDB
 class TopicsService(BaseService):
 
     async def get_topics(self, user_oid: str) -> list[TopicResponse]:
+        """Получить обращения. Staff видит все, обычный пользователь - только свои."""
         try:
-            return await self.db.topics.get_all(author_oid=user_oid)
+            # Проверяем, является ли пользователь диспетчером (staff)
+            user = await self.db.users.get_one(oid=user_oid)
+            if user.is_staff:
+                # Диспетчер видит все обращения
+                return await self.db.topics.get_all()
+            else:
+                # Обычный пользователь видит только свои
+                return await self.db.topics.get_all(author_oid=user_oid)
         except ObjectNotFoundException:
             raise TopicNotFoundException
 

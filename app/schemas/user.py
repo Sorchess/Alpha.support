@@ -24,6 +24,7 @@ class UserResponse(BaseModel):
     username: str
     email: EmailStr
     email_verified: bool
+    is_staff: bool = False
     registered_in: datetime
     avatar_url: Optional[HttpUrl] = None
 

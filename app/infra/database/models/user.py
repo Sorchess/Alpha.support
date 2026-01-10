@@ -30,6 +30,7 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
     email_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_staff: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     registered_in: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
