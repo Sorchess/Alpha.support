@@ -1,0 +1,121 @@
+.metrics-page {
+  padding: 16px 16px 88px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+.metrics-page--loading {
+  min-height: calc(100vh - 88px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.metrics-page__header {
+  margin-bottom: 16px;
+}
+.metrics-page__title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.metrics-page__subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+.metrics-page__content {
+  display: grid;
+  gap: 16px;
+}
+.metrics-page__grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.metrics-page__section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 14px 16px;
+}
+.metrics-page__section-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.metrics-page__latest {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.metrics-page__latest-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+.metrics-page__latest-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+.metrics-page__latest-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+.metrics-page__hint {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+.metrics-page__error {
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+}
+
+.metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 14px 16px;
+}
+.metric-card__label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+.metric-card__value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.metric-card--action {
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, background-color 0.1s ease;
+}
+.metric-card--action:hover {
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.14);
+  transform: translateY(-1px);
+  background-color: #f9fafb;
+}
+.metric-card--action:active {
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .metrics-page {
+    padding: 20px 20px 96px;
+  }
+  .metrics-page__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

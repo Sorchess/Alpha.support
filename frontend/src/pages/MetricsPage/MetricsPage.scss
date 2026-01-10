@@ -1,0 +1,144 @@
+@use "../../shared/styles/variables" as *;
+
+.metrics-page {
+  padding: 16px 16px 88px; // место под BottomNav (fixed) [file:405]
+  max-width: 980px;
+  margin: 0 auto;
+
+  &--loading {
+    min-height: calc(100vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__header {
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: $color-text-secondary;
+  }
+
+  &__content {
+    display: grid;
+    gap: 16px;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    padding: 14px 16px;
+  }
+
+  &__section-title {
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__latest {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  &__latest-item {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #f9fafb;
+  }
+
+  &__latest-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-text;
+    margin-bottom: 4px;
+  }
+
+  &__latest-meta {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: $color-text-secondary;
+  }
+
+  &__hint {
+    margin: 0;
+    color: $color-text-secondary;
+    font-size: 13px;
+  }
+
+  &__error {
+    background: rgba(239, 68, 68, 0.08);
+    color: #b91c1c;
+    border: 1px solid rgba(239, 68, 68, 0.18);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+}
+
+.metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 14px 16px;
+
+  &__label {
+    font-size: 12px;
+    color: $color-text-secondary;
+    margin-bottom: 6px;
+  }
+
+  &__value {
+    font-size: 20px;
+    font-weight: 800;
+    color: $color-text;
+  }
+
+  &--action {
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.15s ease,
+      background-color 0.1s ease;
+
+    &:hover {
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.14);
+      transform: translateY(-1px);
+      background-color: #f9fafb;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .metrics-page {
+    padding: 20px 20px 96px;
+
+    &__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+}

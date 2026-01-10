@@ -1,0 +1,99 @@
+@use "../../../../shared/styles/variables" as *;
+
+.ticket-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.1s ease,
+    background-color 0.1s ease;
+
+  &:hover {
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.14);
+    transform: translateY(-1px);
+    background-color: #f9fafb;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Верхняя строка
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  // Уникальный номер
+  &__id {
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-primary;
+  }
+
+  // Время
+  &__time {
+    font-size: 12px;
+    color: $color-text-secondary;
+  }
+
+  // Заголовок (описание проблемы)
+  &__title {
+    font-size: 15px;
+    font-weight: 500;
+    color: $color-text;
+    margin: 0 0 12px;
+    line-height: 1.4;
+  }
+
+  // Нижняя строка
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // Кружок с инициалами автора
+  &__author {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: $color-primary;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    line-height: 1;
+  }
+
+  &__status--blue {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.25);
+    color: rgb(37, 99, 235);
+  }
+
+  &__status--orange {
+    background: rgba(249, 115, 22, 0.12);
+    border-color: rgba(249, 115, 22, 0.25);
+    color: rgb(234, 88, 12);
+  }
+
+  &__status--green {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.25);
+    color: rgb(22, 163, 74);
+  }
+}

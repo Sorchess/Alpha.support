@@ -1,0 +1,24 @@
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}
+.badge--blue {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+.badge--orange {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+.badge--green {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+.badge--gray {
+  background-color: #f1f5f9;
+  color: #64748b;
+}/*# sourceMappingURL=Badge.css.map */

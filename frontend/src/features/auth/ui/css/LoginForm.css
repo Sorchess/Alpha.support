@@ -1,0 +1,193 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.auth-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.auth-form__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+.auth-form__input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d4e4;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.auth-form__input::placeholder {
+  color: #6b7280;
+}
+.auth-form__input:hover {
+  border-color: rgb(224.1959459459, 226.8175675676, 237.3040540541);
+  background-color: #f9fafb;
+}
+.auth-form__input:focus {
+  outline: none;
+  border-color: #4297ff;
+  box-shadow: 0 0 0 2px rgba(66, 151, 255, 0.15);
+  background-color: #ffffff;
+}
+.auth-form__input--error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
+}
+.auth-form__error {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 2px;
+}
+.auth-form__password-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  width: 100%;
+}
+.auth-form__password-eye {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+.auth-form__password-eye-icon {
+  width: 20px;
+  height: 20px;
+}
+.auth-form__toggle-password {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #4297ff;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+.auth-form__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.auth-form__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.auth-form__checkbox-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.auth-form__checkbox-box {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid #d0d4e4;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2);
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.auth-form__checkbox-box::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: scale(0.8) rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+.auth-form__checkbox-input:checked + .auth-form__checkbox-box {
+  background-color: #242470;
+  border-color: #242470;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
+}
+.auth-form__checkbox-input:checked + .auth-form__checkbox-box::after {
+  opacity: 1;
+}
+.auth-form__checkbox-text {
+  font-size: 13px;
+  color: #1a1a1a;
+}
+.auth-form__checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+.auth-form__link-button {
+  border: none;
+  background: transparent;
+  color: #4297ff;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.15s ease;
+}
+.auth-form__link-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.15s ease;
+}
+.auth-form__link-button:hover {
+  color: rgb(25.2, 128.5492063492, 255);
+}
+.auth-form__link-button:hover::after {
+  width: 100%;
+}
+.auth-form__submit {
+  margin-top: 8px;
+  width: 100%;
+}
+.auth-form__submit:hover {
+  background: #4297ff;
+}
+.auth-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.auth-form__footer {
+  margin-top: 10px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+@media (max-width: 480px) {
+  .auth-form {
+    gap: 16px;
+  }
+  .auth-form__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}/*# sourceMappingURL=LoginForm.css.map */
