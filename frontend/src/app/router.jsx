@@ -5,6 +5,7 @@ import { AuthPage } from "../pages/AuthPage/AuthPage";
 import { ProfilePage } from "../pages/ProfilePage/ProfilePage";
 import { ForgotPasswordPage } from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import { TicketsPage } from "../pages/TicketsPage/TicketsPage";
+import { TicketDetailPage } from "../pages/TicketDetailPage/TicketDetailPage";
 import { CreateTicketPage } from "../pages/CreateTicketPage/CreateTicketPage";
 import { MetricsPage } from "../pages/MetricsPage/MetricsPage";
 
@@ -53,6 +54,14 @@ export const AppRouter = () => (
         element={
           <RequireAuth>
             <TicketsPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/tickets/:topicOid"
+        element={
+          <RequireAuth>
+            <TicketDetailPage />
           </RequireAuth>
         }
       />

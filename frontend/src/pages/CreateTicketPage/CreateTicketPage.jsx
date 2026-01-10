@@ -79,7 +79,7 @@ export const CreateTicketPage = () => {
     }
   };
 
-  const isFormInValid =
+  const isFormInvalid =
     !!errors.title ||
     !!errors.description ||
     !title.trim() ||

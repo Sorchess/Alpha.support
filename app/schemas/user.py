@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr, Field, ConfigDict, HttpUrl
 
 class UserCredentials(BaseModel):
     email: EmailStr = Field(min_length=4, max_length=255)
-    password: str = Field(min_length=8)
+    password: str = Field(min_length=6)
 
 
 class UserCreate(UserCredentials):

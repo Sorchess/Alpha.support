@@ -66,6 +66,21 @@
     padding: 10px 12px;
     border-radius: 10px;
     background: #f9fafb;
+
+    &--clickable {
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.1s ease;
+
+      &:hover {
+        background: #f3f4f6;
+        transform: translateX(4px);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $color-primary;
+      }
+    }
   }
 
   &__latest-title {

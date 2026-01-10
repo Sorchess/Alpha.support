@@ -1,0 +1,1 @@
+export { TicketDetailPage } from "./TicketDetailPage";

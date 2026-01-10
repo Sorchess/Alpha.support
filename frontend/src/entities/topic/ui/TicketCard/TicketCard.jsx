@@ -31,7 +31,7 @@ const formatRelativeTime = (iso) => {
 
 export const TicketCard = ({ topic, onClick, status }) => {
   const id = topic?.oid || "";
-  const title = topic?.oid || "";
+  const title = topic?.title || "Без темы";
   const createdAt = formatRelativeTime(topic?.created_at);
   const authorInitials = getInitialsFromOid(topic?.author_oid);
 

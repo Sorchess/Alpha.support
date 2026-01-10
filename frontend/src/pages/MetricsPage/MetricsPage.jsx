@@ -37,7 +37,7 @@ export const MetricsPage = () => {
       setTopicsError(null);
 
       try {
-        const res = await loadTopicss();
+        const res = await loadTopics();
         if (!res.ok) {
           setTopicsError(res.error || "Не удалось загрузить метрики");
           setTopics([]);
@@ -194,7 +194,18 @@ export const MetricsPage = () => {
               ) : (
                 <ul className="metrics-page__latest">
                   {Metrics.latest.map((t) => (
-                    <li key={t.oid} className="metrics-page__latest-item">
+                    <li
+                      key={t.oid}
+                      className="metrics-page__latest-item metrics-page__latest-item--clickable"
+                      onClick={() => navigate(`/tickets/${t.oid}`)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          navigate(`/tickets/${t.oid}`);
+                        }
+                      }}
+                    >
                       <div className="metrics-page__latest-title">
                         {t.title}
                       </div>

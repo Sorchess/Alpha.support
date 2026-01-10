@@ -80,17 +80,7 @@ export const TicketsPage = () => {
   }, [topics, activeFilter, searchQuery]);
 
   const handleTopicClick = (topic) => {
-    const current = topicStatusStorage.get(topic.oid);
-
-    const next =
-      current === ticketStatus.new
-        ? ticketStatus.in_progress
-        : current === ticketStatus.in_progress
-        ? ticketStatus.resolved
-        : ticketStatus.new;
-
-    topicStatusStorage.set(topic.oid, next);
-    setTopics((prev) => [...prev]); // форсим перерендер
+    navigate(`/tickets/${topic.oid}`);
   };
 
   if (authLoading) {

@@ -1,5 +1,6 @@
 networks:
   prod:
+    driver: bridge
 
 services:
   rabbitmq:
@@ -13,9 +14,9 @@ services:
       RABBITMQ_DEFAULT_VHOST: "/"
       RABBITMQ_CONFIG_FILE: /etc/rabbitmq/rabbitmq.conf
     volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
+      - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
-      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -31,7 +32,7 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 3
@@ -64,23 +65,10 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 3s
       retries: 3
-    networks:
-      - prod
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.org
-      PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    ports:
-      - "5050:80"
-    depends_on:
-      - pg
     networks:
       - prod
 
@@ -119,10 +107,29 @@ services:
     networks:
       - prod
 
+  frontend:
+    build:
+      context: ./frontend
+    env_file:
+      - .env
+    networks:
+      - prod
 
-
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+      # - "443:443"
+    volumes:
+      # - './frontend/certs/:/etc/nginx/certs:ro'
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+    depends_on:
+      - app
+      - frontend
+    networks:
+      - prod
 
 volumes:
   pgdata:
-  rabbitmq-data:
   redis_data:
+  rabbitmq_data:
